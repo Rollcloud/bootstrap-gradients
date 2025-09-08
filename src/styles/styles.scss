@@ -34,9 +34,13 @@ pre {
   gap: 0.5em;
 }
 
-.colour-swatches .row {
-  @extend .d-flex;
-  @extend .align-items-center;
+.palette {
+  @extend .panel-white;
+
+  .row {
+    @extend .d-flex;
+    @extend .align-items-center;
+  }
 }
 
 .label {

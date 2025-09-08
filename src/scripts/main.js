@@ -83,7 +83,7 @@ function createSwatchForRow(colorRow, paletteIndex, colourName) {
 }
 
 function createColorSwatches() {
-  const selector = '.colour-swatches';
+  const selector = '.palette';
   const swatchContainers = document.querySelectorAll(selector);
   swatchContainers.forEach((swatchContainer, paletteIndex) => {
     populateSwatches(swatchContainer, paletteIndex);
