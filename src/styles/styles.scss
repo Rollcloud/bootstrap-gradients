@@ -4,6 +4,19 @@
 // Import the full bootstrap colour palette
 @import "bootstrap-colours-full";
 
+pre {
+  @extend .mb-0;
+}
+
+// Utility classes
+.panel-white {
+  @extend .bg-white;
+  @extend .bg-opacity-75;
+  @extend .rounded-4;
+  @extend .p-4;
+}
+
+// Custom styles
 .logo {
   height: 1.5em;
   width: 1.5em;
