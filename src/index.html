@@ -21,20 +21,23 @@
     </nav>
 
     <main class="container text-center py-5">
-      <h1 class="display-4 mb-4">Bootstrap Gradient Generator</h1>
-      <p class="lead">Generate CSS gradients using Bootstrap 5 colours.</p>
+      <div class="row">
+        <h1 class="display-4 mb-4">Bootstrap Gradient Generator</h1>
+        <p class="lead">Generate CSS gradients using Bootstrap 5 colours.</p>
+      </div>
 
-      <div class="">
+      <button class="btn btn-dark btn-lg mt-3 btn-shuffle">Shuffle</button>
+
+      <div class="row my-4 justify-content-center">
         <span class="swatch-lg"></span>
-        <a href="#" class="btn btn-dark btn-lg mt-3 btn-shuffle">Shuffle</a>
         <span class="swatch-lg"></span>
       </div>
 
-      <div class="row g-5">
+      <div class="row">
         <div class="col-md-3 colour-swatches"></div>
         <div class="col-md-6">
-          <div class="gradient-code mt-4 p-3 bg-light border rounded">
-            <code class="css-code"></code>
+          <div class="gradient-code p-3 bg-light border rounded">
+            <pre><code class="css-code"></code></pre>
           </div>
         </div>
         <div class="col-md-3 colour-swatches"></div>
