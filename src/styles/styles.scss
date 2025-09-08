@@ -37,6 +37,9 @@ pre {
 .palette {
   @extend .panel-white;
 
+  line-height: 0.8em;
+  width: 11 * 2em; // multiple swatches of the same colour
+
   .row {
     @extend .d-flex;
     @extend .align-items-center;
@@ -49,32 +52,30 @@ pre {
 }
 
 .swatch {
+  @extend .d-inline-block;
+  @extend .rounded;
+  @extend .shadow;
+
   height: 2em;
   width: 2em;
-  margin: 0.1em;
-  border-radius: 5px;
-  display: inline-block;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin: 0.05em;
+  cursor: pointer;
 
   &:hover {
-    cursor: pointer;
     transform: scale(1.1);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
 }
 
 .swatch-lg {
+  @extend .d-inline-block;
   @extend .mx-3;
+  @extend .rounded-3;
+  @extend .shadow;
 
   height: 4em;
   width: 4em;
-  border-radius: 10px;
-  display: inline-block;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 
   &:hover {
-    cursor: pointer;
     transform: scale(1.1);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
   }
 }

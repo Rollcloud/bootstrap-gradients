@@ -34,18 +34,6 @@ const swatchDOM = (colorName, paletteIndex) => {
   return tempDiv.firstChild;
 };
 
-const colourRowDOM = (color) => {
-  const template = `
-    <div class="row">
-        <div class="col-4 label">${color.charAt(0).toUpperCase() + color.slice(1)}s</div>
-        <div class="col-8 variants"></div>
-    </div>
-    `;
-  const tempDiv = document.createElement('div');
-  tempDiv.innerHTML = template.trim();
-  return tempDiv;
-};
-
 // Utility function to convert RGB to HEX
 function rgbToHex(rgb) {
   const result = rgb.match(/\d+/g);
@@ -77,10 +65,10 @@ function shuffleColors() {
   updateGradient(randomColourStart, randomColourMiddle, randomColourEnd);
 }
 
-function createSwatchForRow(colorRow, paletteIndex, colourName) {
+function createSwatchForContainer(container, paletteIndex, colourName) {
   const swatch = swatchDOM(colourName, paletteIndex);
   swatch.addEventListener('click', () => selectColor(paletteIndex, colourName));
-  colorRow.querySelector('.variants').appendChild(swatch);
+  container.appendChild(swatch);
   return swatch;
 }
 
@@ -107,15 +95,12 @@ function populateSwatches(swatchContainer, paletteIndex) {
 
   // For each colour name (e.g. red, blue, green)
   colorNames.forEach((color) => {
-    // Create a row and label for each colour
-    const colorRow = colourRowDOM(color);
-
     colorVariants.forEach((variant) => {
       const colourName = `${color}-${variant}`;
-      createSwatchForRow(colorRow, paletteIndex, colourName);
+      createSwatchForContainer(swatchContainer, paletteIndex, colourName);
     });
 
-    swatchContainer.appendChild(colorRow);
+    // swatchContainer.appendChild(colorRow);
   });
 }
 
