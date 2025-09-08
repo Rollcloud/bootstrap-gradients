@@ -62,6 +62,7 @@ function shuffleColors() {
   selectColor(1, randomColourMiddle);
   selectColor(2, randomColourEnd);
 
+  // Update the gradient preview
   updateGradient(randomColourStart, randomColourMiddle, randomColourEnd);
 }
 
@@ -104,29 +105,15 @@ function populateSwatches(swatchContainer, paletteIndex) {
   });
 }
 
-// When a colour swatch is clicked, add it to the large swatch with pallette index
-function selectColor(paletteIndex, colorName) {
-  // get the large swatch elements
+function setSwatchToColour(swatchIndex, colourName) {
   const largeSwatches = document.querySelectorAll('.swatch-lg');
-  if (largeSwatches.length < 2) return;
+  if (largeSwatches.length <= swatchIndex) return;
 
-  const selectedSwatch = largeSwatches[paletteIndex];
-  const selectedColourClass = `bd-${colorName}`;
-
-  // Remove any existing swatch colour classes
-  selectedSwatch.className = 'swatch-lg';
-  // Add the new class
-  selectedSwatch.classList.add(selectedColourClass);
-
-  selectedSwatch.dataset.name = colorName;
-  selectedSwatch.title = colorName;
-
-  // Update the gradient preview
-
-  // Get the colours from the large swatches
-  const chosenColours = Array.from(largeSwatches).map((swatch) => swatch.getAttribute('data-name'));
-
-  updateGradient(...chosenColours);
+  const swatch = largeSwatches[swatchIndex];
+  swatch.className = 'swatch-lg'; // Reset classes
+  swatch.classList.add(`bd-${colourName}`);
+  swatch.dataset.name = colourName;
+  swatch.title = colourName;
 }
 
 function updateGradient(...colours) {
@@ -149,13 +136,52 @@ function updateGradient(...colours) {
     background: ${gradientCssHex};
     `).trim();
   }
+
+  // Update the URL parameters
+  // e.g. ?colour=red-500&colour=blue-500&colour=green-500
+
+  // Set the URL parameters
+  const urlParams = new URLSearchParams();
+  colours.forEach((color) => {
+    urlParams.append('colour', color);
+  });
+
+  const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
+
+  // Update the URL without reloading the page
+  //   window.history.replaceState({}, '', newUrl);
+
+  // Add the URL to the back history
+  window.history.pushState({}, '', newUrl);
+}
+
+// When a colour swatch is clicked, add it to the large swatch with pallette index
+function selectColor(paletteIndex, colorName) {
+  setSwatchToColour(paletteIndex, colorName);
+
+  // Get the colours from the large swatches and update the gradient
+  const largeSwatches = document.querySelectorAll('.swatch-lg');
+  const chosenColours = Array.from(largeSwatches).map((swatch) => swatch.getAttribute('data-name'));
+  updateGradient(...chosenColours);
 }
 
 // Initialize the colour swatches on page load
 createColorSwatches();
 
-// Set an initial gradient
-shuffleColors();
+// Check for URL parameters to set initial colours or shuffle
+const urlParams = new URLSearchParams(window.location.search);
+const coloursFromUrl = urlParams.getAll('colour');
+if (coloursFromUrl.length > 0) {
+  // If there are URL parameters, use them to set the colours
+  coloursFromUrl.forEach((color, index) => {
+    setSwatchToColour(index, color);
+  });
+
+  updateGradient(...coloursFromUrl);
+} else {
+  // If no URL parameters, shuffle the colours
+  shuffleColors();
+}
 
 // Set up the shuffle button
 const shuffleButton = document.querySelector('.btn-shuffle');
