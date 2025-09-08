@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#6f42c1" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <title>Bootstrap Gradient Generator</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <span class="logo"></span>
+          <span>Bootstrap Gradient Generator</span></a
+        >
+      </div>
+    </nav>
+
+    <main class="container text-center py-5">
+      <h1 class="display-4 mb-4">Bootstrap Gradient Generator</h1>
+      <p class="lead">Generate CSS gradients using Bootstrap 5 colours.</p>
+
+      <div class="">
+        <span class="swatch-lg"></span>
+        <a href="#" class="btn btn-dark btn-lg mt-3 btn-shuffle">Shuffle</a>
+        <span class="swatch-lg"></span>
+      </div>
+
+      <div class="row g-5">
+        <div class="col-md-3 colour-swatches"></div>
+        <div class="col-md-6">
+          <div class="gradient-code mt-4 p-3 bg-light border rounded">
+            <code class="css-code"></code>
+          </div>
+        </div>
+        <div class="col-md-3 colour-swatches"></div>
+      </div>
+    </main>
+
+    <script type="module" src="/scripts/main.js"></script>
+  </body>
+</html>

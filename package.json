@@ -1,0 +1,26 @@
+{
+  "name": "bootstrap-gradients",
+  "version": "0.1.0",
+  "description": "Generate CSS gradients using Bootstrap colors",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rollcloud/bootstrap-gradients.git"
+  },
+  "author": "Rollcloud",
+  "license": "GNU Affero General Public License v3.0",
+  "homepage": "https://github.com/rollcloud/bootstrap-gradients#readme",
+  "devDependencies": {
+    "prettier": "3.6.2",
+    "sass": "^1.92.1",
+    "vite": "^7.1.2"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.8"
+  }
+}

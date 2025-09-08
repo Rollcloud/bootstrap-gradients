@@ -1,0 +1,62 @@
+// Import all of Bootstrap's CSS
+@import "bootstrap/scss/bootstrap";
+
+// Import the full bootstrap colour palette
+@import "bootstrap-colours-full";
+
+.logo {
+  height: 1.5em;
+  width: 1.5em;
+  border-radius: 5px;
+  display: inline-block;
+
+  // gradient background
+  background: linear-gradient(45deg, #ff6ec4, #7873f5);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.colour-swatches .row {
+  @extend .d-flex;
+  @extend .align-items-center;
+}
+
+.label {
+  display: inline-block;
+  width: 6em;
+}
+
+.swatch {
+  height: 2em;
+  width: 2em;
+  margin: 0.1em;
+  border-radius: 5px;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.swatch-lg {
+  height: 4em;
+  width: 4em;
+  margin: 0.2em;
+  border-radius: 10px;
+  display: inline-block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+}
