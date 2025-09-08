@@ -59,12 +59,20 @@ function rgbToHex(rgb) {
     : null;
 }
 
+// Utility function to remove indentation from multiline strings
+function dedent(str) {
+  return str.replace(/^[ \t]+/gm, '').trim();
+}
+
 function shuffleColors() {
   const colourKeys = Object.keys(colourHexes);
-  const randomHex1 = colourHexes[colourKeys[Math.floor(Math.random() * colourKeys.length)]];
-  const randomHex2 = colourHexes[colourKeys[Math.floor(Math.random() * colourKeys.length)]];
+  const randomColourFrom = colourKeys[Math.floor(Math.random() * colourKeys.length)];
+  const randomColourTo = colourKeys[Math.floor(Math.random() * colourKeys.length)];
 
-  updateGradient(randomHex1, randomHex2);
+  selectColor(0, randomColourFrom);
+  selectColor(1, randomColourTo);
+
+  updateGradient(randomColourFrom, randomColourTo);
 }
 
 function createSwatchForRow(colorRow, paletteIndex, colourName) {
@@ -123,24 +131,35 @@ function selectColor(paletteIndex, colorName) {
   // Add the new class
   selectedSwatch.classList.add(selectedColourClass);
 
-  // Update the gradient preview
-  const swatchThisRGB = getComputedStyle(largeSwatches[0]).backgroundColor;
-  const swatchThatRGB = getComputedStyle(largeSwatches[1]).backgroundColor;
-  const swatchThisHex = rgbToHex(swatchThisRGB);
-  const swatchThatHex = rgbToHex(swatchThatRGB);
+  selectedSwatch.dataset.name = colorName;
+  selectedSwatch.title = colorName;
 
-  updateGradient(swatchThisHex, swatchThatHex);
+  // Update the gradient preview
+  const swatchFromColour = largeSwatches[0].getAttribute('data-name');
+  const swatchToColour = largeSwatches[1].getAttribute('data-name');
+
+  updateGradient(swatchFromColour, swatchToColour);
 }
 
-function updateGradient(hex1, hex2) {
+function updateGradient(colourFrom, colourTo) {
   // Update the gradient preview (body) based on the selected colours
-  const gradientCss = `linear-gradient(to right, ${hex1}, ${hex2})`;
-  document.body.style.background = gradientCss;
+  const colourFromHex = colourHexes[colourFrom];
+  const colourToHex = colourHexes[colourTo];
+
+  const gradientCssName = `linear-gradient(to right, $${colourFrom}, $${colourTo})`;
+  const gradientCssHex = `linear-gradient(to right, ${colourFromHex}, ${colourToHex})`;
+  document.body.style.background = gradientCssHex;
 
   // Update the CSS code display
   const cssCodeDisplay = document.querySelector('.css-code');
   if (cssCodeDisplay) {
-    cssCodeDisplay.textContent = `background: ${gradientCss};`;
+    cssCodeDisplay.textContent = dedent(`
+    background: ${gradientCssName};
+
+    /* OR */
+
+    background: ${gradientCssHex};
+    `).trim();
   }
 }
 
