@@ -66,13 +66,15 @@ function dedent(str) {
 
 function shuffleColors() {
   const colourKeys = Object.keys(colourHexes);
-  const randomColourFrom = colourKeys[Math.floor(Math.random() * colourKeys.length)];
-  const randomColourTo = colourKeys[Math.floor(Math.random() * colourKeys.length)];
+  const randomColourStart = colourKeys[Math.floor(Math.random() * colourKeys.length)];
+  const randomColourMiddle = colourKeys[Math.floor(Math.random() * colourKeys.length)];
+  const randomColourEnd = colourKeys[Math.floor(Math.random() * colourKeys.length)];
 
-  selectColor(0, randomColourFrom);
-  selectColor(1, randomColourTo);
+  selectColor(0, randomColourStart);
+  selectColor(1, randomColourMiddle);
+  selectColor(2, randomColourEnd);
 
-  updateGradient(randomColourFrom, randomColourTo);
+  updateGradient(randomColourStart, randomColourMiddle, randomColourEnd);
 }
 
 function createSwatchForRow(colorRow, paletteIndex, colourName) {
@@ -135,19 +137,20 @@ function selectColor(paletteIndex, colorName) {
   selectedSwatch.title = colorName;
 
   // Update the gradient preview
-  const swatchFromColour = largeSwatches[0].getAttribute('data-name');
-  const swatchToColour = largeSwatches[1].getAttribute('data-name');
 
-  updateGradient(swatchFromColour, swatchToColour);
+  // Get the colours from the large swatches
+  const chosenColours = Array.from(largeSwatches).map((swatch) => swatch.getAttribute('data-name'));
+
+  updateGradient(...chosenColours);
 }
 
-function updateGradient(colourFrom, colourTo) {
+function updateGradient(...colours) {
   // Update the gradient preview (body) based on the selected colours
-  const colourFromHex = colourHexes[colourFrom];
-  const colourToHex = colourHexes[colourTo];
+  const hexes = colours.map((color) => colourHexes[color]);
+  const colourNames = colours.map((color) => `$${color}`);
 
-  const gradientCssName = `linear-gradient(to right, $${colourFrom}, $${colourTo})`;
-  const gradientCssHex = `linear-gradient(to right, ${colourFromHex}, ${colourToHex})`;
+  const gradientCssName = `linear-gradient(to right, ${colourNames.join(', ')})`;
+  const gradientCssHex = `linear-gradient(to right, ${hexes.join(', ')})`;
   document.body.style.background = gradientCssHex;
 
   // Update the CSS code display
