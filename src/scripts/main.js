@@ -21,7 +21,7 @@ const colorVariants = ['100', '200', '300', '400', '500', '600', '700', '800', '
 
 let colourHexes = {};
 
-const swatchDOM = (colorName, paletteIndex) => {
+const swatchDOM = (colorName, paletteIndex, angleDeg, level) => {
   const template = `
   <div 
     class="swatch bd-${colorName}" 
@@ -31,7 +31,12 @@ const swatchDOM = (colorName, paletteIndex) => {
   ></div>`;
   const tempDiv = document.createElement('div');
   tempDiv.innerHTML = template.trim();
-  return tempDiv.firstChild;
+
+  const dom = tempDiv.firstChild;
+  dom.style.setProperty('--angle', `${angleDeg}deg`);
+  dom.style.setProperty('--radius', `${level}em`);
+
+  return dom;
 };
 
 // Utility function to convert RGB to HEX
@@ -66,8 +71,8 @@ function shuffleColors() {
   updateGradient(randomColourStart, randomColourMiddle, randomColourEnd);
 }
 
-function createSwatchForContainer(container, paletteIndex, colourName) {
-  const swatch = swatchDOM(colourName, paletteIndex);
+function createSwatchForContainer(container, paletteIndex, colourName, angleDeg, level) {
+  const swatch = swatchDOM(colourName, paletteIndex, angleDeg, level);
   swatch.addEventListener('click', () => selectColor(paletteIndex, colourName));
   container.appendChild(swatch);
   return swatch;
@@ -95,10 +100,12 @@ function populateSwatches(swatchContainer, paletteIndex) {
   swatchContainer.innerHTML = ''; // Clear any existing swatches
 
   // For each colour name (e.g. red, blue, green)
-  colorNames.forEach((color) => {
-    colorVariants.forEach((variant) => {
+  colorNames.forEach((color, nameIndex) => {
+    const angleDeg = Math.round((360 / colorNames.length) * nameIndex);
+    colorVariants.forEach((variant, variantIndex) => {
+      const level = colorVariants.length - variantIndex; // reverse order
       const colourName = `${color}-${variant}`;
-      createSwatchForContainer(swatchContainer, paletteIndex, colourName);
+      createSwatchForContainer(swatchContainer, paletteIndex, colourName, angleDeg, level);
     });
 
     // swatchContainer.appendChild(colorRow);

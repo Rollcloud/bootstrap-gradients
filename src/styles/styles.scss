@@ -37,6 +37,7 @@ pre {
 .palette {
   @extend .panel-white;
 
+  position: relative;
   line-height: 0.8em;
   width: 11 * 2em; // multiple swatches of the same colour
 
@@ -61,9 +62,16 @@ pre {
   margin: 0.05em;
   cursor: pointer;
 
-  &:hover {
-    transform: scale(1.1);
-  }
+  // Circular positioning
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: rotate(calc(var(--angle, 0deg) - 90deg)) translateX(calc(var(--radius, 0em) * 2));
+  // rotate(calc(-1 * var(--angle, 0deg) ));
+
+  // &:hover {
+  //   transform: scale(1.1);
+  // }
 }
 
 .swatch-lg {
